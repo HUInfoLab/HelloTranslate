@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/google-api-translate-java-0.97.jar')
+    compile files('libs/microsoft-translator-java-api-0.6.1-jar-with-dependencies')
 }

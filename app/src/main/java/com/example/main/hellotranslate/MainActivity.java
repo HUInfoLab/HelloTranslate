@@ -1,83 +1,120 @@
 package com.example.main.hellotranslate;
 
-import android.support.v7.app.ActionBarActivity;
+import java.util.Locale;
+
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.api.translate.Language;
-import com.google.api.translate.Translate;
+//Microsoft Bing Translate API JAR files
+import com.memetix.mst.language.Language;
+import com.memetix.mst.translate.Translate;
 
 
-public class MainActivity extends ActionBarActivity {
 
-    EditText MyInputText;
-    Button MyTranslateButton;
-    TextView MyOutputText;
+public class MainActivity extends Activity implements OnInitListener {
 
+    private TextToSpeech tts;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyInputText = (EditText)findViewById(R.id.InputText);
-        MyTranslateButton = (Button)findViewById(R.id.TranslateButton);
-        MyOutputText = (TextView)findViewById(R.id.OutputText);
-
-        MyTranslateButton.setOnClickListener(MyTranslateButtonOnClickListener);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public Button.OnClickListener MyTranslateButtonOnClickListener;
-
-    {
-        MyTranslateButtonOnClickListener = new Button.OnClickListener() {
+        tts = new TextToSpeech(this, this);
+        ((Button) findViewById(R.id.bSpeak)).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                String InputString;
-                String OutputString = null;
-                InputString = MyInputText.getText().toString();
+                speakOut(((TextView) findViewById(R.id.tvTranslatedText)).getText().toString());
+            }
+        });
 
-                try {
+        ((Button) findViewById(R.id.bTranslate)).setOnClickListener(new OnClickListener() {
 
-                    OutputString = Translate.DEFAULT.execute(InputString,
-                            Language.ENGLISH, Language.FRENCH);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    OutputString = "Error";
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+
+
+                class bgStuff extends AsyncTask<Void, Void, Void>{
+
+                    String translatedText = "";
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        // TODO Auto-generated method stub
+                        try {
+                            String text = ((EditText) findViewById(R.id.etUserText)).getText().toString();
+                            translatedText = translate(text);
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            translatedText = e.toString();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        // TODO Auto-generated method stub
+                        ((TextView) findViewById(R.id.tvTranslatedText)).setText(translatedText);
+                        super.onPostExecute(result);
+                    }
+
                 }
 
-                MyOutputText.setText(OutputString);
-
+                new bgStuff().execute();
             }
-        };
+        });
     }
+
+    public String translate(String text) throws Exception{
+
+
+        // Set the Client ID / Client Secret once per JVM. It is set statically and applies to all services
+        Translate.setClientId("My Little Pony"); //Change this
+        Translate.setClientSecret("Many Numbers and Letters"); //change
+
+
+        String translatedText = "";
+
+        translatedText = Translate.execute(text,Language.GERMAN);
+
+        return translatedText;
+    }
+
+    @Override
+    public void onInit(int status) {
+        // TODO Auto-generated method stub
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = tts.setLanguage(Locale.GERMAN);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "This Language is not supported");
+            } else {
+
+                //speakOut("Ich");
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!");
+        }
+    }
+
+    private void speakOut(String text) {
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
 }

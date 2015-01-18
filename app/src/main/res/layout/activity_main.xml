@@ -7,27 +7,43 @@
 
 
     <EditText
-        android:id="@+id/InputText"
-        android:layout_width="fill_parent"
+        android:id="@+id/etUserText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-         />
-    <Button
-        android:id="@+id/TranslateButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Translate"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
     <TextView
-        android:id="@+id/OutputText"
-        android:layout_width="fill_parent"
+        android:id="@+id/tvTranslatedText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TranslateButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="104dp" />
+        android:layout_below="@+id/etUserText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="168dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/bTranslate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etUserText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Translate" />
+
+    <Button
+        android:id="@+id/bSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTranslatedText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="Speak" />
 
 </RelativeLayout>
