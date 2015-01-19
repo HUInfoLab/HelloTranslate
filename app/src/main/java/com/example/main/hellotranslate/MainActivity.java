@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import com.memetix.mst.translate.Translate;
 public class MainActivity extends Activity implements OnInitListener {
 
     private TextToSpeech tts;
-    private Button btnVocalInput;
+    private ImageButton btnVocalInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
@@ -36,7 +37,7 @@ public class MainActivity extends Activity implements OnInitListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnVocalInput = (Button) findViewById(R.id.btnVocalInput);
+        btnVocalInput = (ImageButton) findViewById(R.id.btnVocalInput);
 
         tts = new TextToSpeech(this, this);
         ((Button) findViewById(R.id.bSpeak)).setOnClickListener(new OnClickListener() {
@@ -100,8 +101,8 @@ public class MainActivity extends Activity implements OnInitListener {
 
 
         // Set the Client ID / Client Secret once per JVM. It is set statically and applies to all services
-        Translate.setClientId("Infinte Sorrow"); //Change this
-        Translate.setClientSecret("Forgetting Sarah Marshall"); //change
+        Translate.setClientId("MultipleChanges"); //Change this
+        Translate.setClientSecret("SoLittleTime"); //change
 
 
         String translatedText = "";
