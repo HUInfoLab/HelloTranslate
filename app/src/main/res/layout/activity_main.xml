@@ -25,7 +25,7 @@
         android:layout_below="@+id/etUserText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="168dp"
-        android:text="Large Text"
+        android:text="Translation will appear here"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -45,5 +45,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"
         android:text="Speak" />
+
+    <Button
+        android:id="@+id/btnVocalInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="Vocal Input"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/bTranslate"
+        android:layout_alignEnd="@+id/bTranslate"
+        android:layout_marginBottom="53dp" />
 
 </RelativeLayout>
