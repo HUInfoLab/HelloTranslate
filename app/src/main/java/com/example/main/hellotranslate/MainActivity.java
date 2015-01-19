@@ -82,13 +82,13 @@ public class MainActivity extends Activity implements OnInitListener {
 
 
         // Set the Client ID / Client Secret once per JVM. It is set statically and applies to all services
-        Translate.setClientId("My Little Pony"); //Change this
-        Translate.setClientSecret("Many Numbers and Letters"); //change
+        Translate.setClientId("Too Many Puppies"); //Change this
+        Translate.setClientSecret("Numbers and Letters"); //change
 
 
         String translatedText = "";
 
-        translatedText = Translate.execute(text,Language.GERMAN);
+        translatedText = Translate.execute(text,Language.KOREAN);
 
         return translatedText;
     }
@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements OnInitListener {
         // TODO Auto-generated method stub
         if (status == TextToSpeech.SUCCESS) {
 
-            int result = tts.setLanguage(Locale.GERMAN);
+            int result = tts.setLanguage(Locale.KOREAN);
 
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
